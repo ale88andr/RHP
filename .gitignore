@@ -1,0 +1,12 @@
+# windows thumbnail cache
+Thumbs.db
+
+#  logs
+/tmp/logs/
+
+# Mac DS_Store Files
+.DS_Store
+/vendor/
+
+# Idea PHPStorm
+.idea/
