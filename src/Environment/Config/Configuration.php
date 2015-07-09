@@ -2,17 +2,24 @@
 
 namespace Environment\Config;
 
+use Environment\Helpers\Hash;
+
 class Configuration
 {
-    protected static $items = [];
+    protected $items = [];
 
-    public static function get($item, $defaultValue = null)
+    public function __construct(array $items)
     {
-        return isset(self::$items[$item]) ? self::$items[$item] : $defaultValue;
+        $this->items = $items;
     }
 
-    public static function  set($item, $value)
+    public function get($item)
     {
-        self::$items[$item] = $value;
+        return Hash::get($this->items, $item);
+    }
+
+    public function set($item, $value)
+    {
+        Hash::set($this->items, $item, $value);
     }
 }

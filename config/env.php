@@ -1,5 +1,13 @@
 <?php
 
-use Environment\Config\Configuration as Conf;
+return [
 
-Conf::set('siteName', 'Explore');
+    'title' => 'Application title',
+
+    'language' => 'ru',
+
+    'timezone' => 'Europe/Moscow',
+
+    'environment' => 'development',
+
+];
