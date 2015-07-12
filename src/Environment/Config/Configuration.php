@@ -8,9 +8,9 @@ class Configuration
 {
     protected $items = [];
 
-    public function __construct(array $items)
+    public function __construct($fromFile)
     {
-        $this->items = $items;
+        $this->items = include($fromFile);
     }
 
     public function get($item)

@@ -1,16 +1,16 @@
 <?php
 
-use Environment\Routing\Route;
-use Environment\Config\Configuration;
+require_once '../config/defines.php';
 
-define('DS', DIRECTORY_SEPARATOR);
-define('ROOT', dirname(dirname(__FILE__)));
-define('PHP', '.php');
+require_once ROOT . DS . 'src' . DS . 'Environment' . DS .'initializer' . EXT;
 
-require_once ROOT.DS.'src'.DS.'Environment'.DS.'initializer'.PHP;
-$cnf = require_once ROOT.DS.'config'.DS.'env'.PHP;
-$env = new Configuration($cnf);
+use Environment\Core\App;
 
-$router = new Route($_SERVER['REQUEST_URI']);
+$app = new App;
+try {
+    require_once $app->layout();
+}
 
-print_r($env->get('title'));
+catch(\Exception $e) {
+    die($e->getMessage());
+}

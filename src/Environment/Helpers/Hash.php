@@ -14,13 +14,11 @@ class Hash
 
     public static function get($array, $key)
     {
-        if(is_null($key))
-        {
+        if(is_null($key)) {
             return $array;
         }
 
-        if (isset($array[$key]))
-        {
+        if (isset($array[$key])) {
             return $array[$key];
         }
 
@@ -35,13 +33,27 @@ class Hash
 
     public static function set(&$array, $key, $value)
     {
-        if(is_null($key))
-        {
+        if(is_null($key)) {
             return $value;
         }
 
         $array[$key] = $value;
 
         return $array;
+    }
+
+    public static function shift(&$array)
+    {
+        if(empty($array) || static::first($array) == '') {
+            return null;
+        }
+        else {
+            return array_shift($array);
+        }
+    }
+
+    public static function first($array)
+    {
+        return $array[0];
     }
 }
