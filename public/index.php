@@ -2,7 +2,7 @@
 
 require_once '../config/defines.php';
 
-require_once ROOT . DS . 'src' . DS . 'Environment' . DS .'initializer' . EXT;
+require_once ROOT . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Environment' . DIRECTORY_SEPARATOR .'initializer.php';
 
 use Environment\Core\App;
 

@@ -105,8 +105,8 @@ class Html
         switch ($fileType) {
             case('css'):
                 $assetsPath = '/app' . '/' . 'assets/' . $fileType . '/' . $fileSource . '.' . $fileType;
-                $publicPath = ROOT_URL . 'public' . DS . $fileType . DS . $fileSource . '.' . $fileType;
-                if (file_exists(ROOT_APP . 'assets' . DS . 'css' . DS . $fileSource . '.' . $fileType)) {
+                $publicPath = ROOT_URL . 'public' . DIRECTORY_SEPARATOR . $fileType . DIRECTORY_SEPARATOR . $fileSource . '.' . $fileType;
+                if (file_exists(ROOT_APP . 'assets' . DIRECTORY_SEPARATOR . 'css' . DIRECTORY_SEPARATOR . $fileSource . '.' . $fileType)) {
                     echo '<link rel="stylesheet" type="text/css" href="'. $assetsPath . '">';
                 } elseif (file_exists($publicPath)) {
                     echo '<link rel="stylesheet" type="text/css" href="'. $publicPath . '">';
@@ -115,8 +115,8 @@ class Html
                 }
                 break;
             case('js'):
-                $assetsPath = ROOT_APP . 'assets' . DS . 'javascript' . DS . $fileSource . '.' . $fileType;
-                $publicPath = ROOT . DS . 'public' . DS . $fileType . DS . $fileSource . '.' . $fileType;
+                $assetsPath = ROOT_APP . 'assets' . DIRECTORY_SEPARATOR . 'javascript' . DIRECTORY_SEPARATOR . $fileSource . '.' . $fileType;
+                $publicPath = ROOT . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR . $fileType . DIRECTORY_SEPARATOR . $fileSource . '.' . $fileType;
                 if (file_exists($assetsPath)) {
                     echo '<script src="' . $assetsPath . '" type="text/javascript" encoding="UTF-8"></script>';
                 } elseif (file_exists($publicPath)) {
