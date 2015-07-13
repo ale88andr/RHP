@@ -4,9 +4,9 @@ namespace Environment\Core;
 
 use Environment\Config\Configuration;
 use Environment\Helpers\Hash;
-use Environment\Interfaces\Application\Foundation as FoundationApplication;
+use Environment\Interfaces\Application\Foundation as FoundationInterface;
 
-class Foundation implements FoundationApplication
+class Foundation implements FoundationInterface
 {
 
     const VERSION = '1.0 pre Alpha';

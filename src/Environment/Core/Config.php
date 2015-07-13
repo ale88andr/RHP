@@ -9,7 +9,7 @@ class Config
 
     private static function init()
     {
-        $config = include( ROOT . DS . 'config' . DS . 'database' .EXT );
+        $config = include( ROOT . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'database.php' );
         if (!DEVELOPMENT_ENV) {
             self::$config['db'] = $config['production'];
         }

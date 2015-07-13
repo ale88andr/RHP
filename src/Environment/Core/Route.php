@@ -7,7 +7,7 @@ class Route
 {
     public static function to($path = null, $params = null)
     {
-        $routes = include (ROOT . DS . 'config' . DS . 'routes' . EXT);
+        $routes = include (ROOT . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'routes.php');
 
         $path_items = explode(':', $path);
         switch (count($path_items)) {

@@ -3,8 +3,9 @@
 namespace Environment\Config;
 
 use Environment\Helpers\Hash;
+use \Environment\Interfaces\Application\Configuration as ConfigurationInterface;
 
-class Configuration
+class Configuration implements ConfigurationInterface
 {
     protected $items = [];
 
@@ -18,7 +19,7 @@ class Configuration
         return Hash::get($this->items, $item);
     }
 
-    public function set($item, $value)
+    public function set(array $item, $value)
     {
         Hash::set($this->items, $item, $value);
     }

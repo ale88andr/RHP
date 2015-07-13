@@ -54,11 +54,11 @@ class App extends Foundation
         if(is_null($this->controller)) {
             $this->controller = 'home';
         }
-        $controller_path = $this->controllersPath() . $this->controller . EXT;
+        $controller_path = $this->controllersPath() . $this->controller . '.php';
         if (file_exists($controller_path)) {
             require_once $controller_path;
 
-            $this->controller = new $this->controller;
+            $this->controller = new $this->controller($this);
             $this->action = (empty($url[0])) ? 'index' : Hash::shift($url);
             $this->applyControllerAction($url);
         }
@@ -118,7 +118,7 @@ class App extends Foundation
     public function layout()
     {
         $layout_dir = $this->viewsPath() . 'layouts' . DIRECTORY_SEPARATOR;
-        $layout_file = static::getLayout() . EXT_VIEW;
+        $layout_file = static::getLayout() . '.html.php';
         $layout = $layout_dir . $layout_file;
         if (file_exists($layout)) {
             return $layout;
