@@ -5,6 +5,7 @@ namespace Environment\Core;
 use Environment\Config\Configuration;
 use Environment\Helpers\Hash;
 use \Exception as Exception;
+use Environment\Core\Exceptions\RequirePartialException;
 
 class App extends Foundation
 {
@@ -15,7 +16,7 @@ class App extends Foundation
      *
      * @var string
      */
-    static private $_layout;
+    static private $layout;
 
     /**
      * Controller generated content
@@ -96,7 +97,7 @@ class App extends Foundation
      */
     public static function setLayout($layout = false)
     {
-        static::$_layout = ($layout) ? $layout : 'application';
+        static::$layout = ($layout) ? $layout : 'application';
     }
 
     /**
@@ -106,7 +107,7 @@ class App extends Foundation
      */
     private function getLayout()
     {
-        return static::$_layout;
+        return static::$layout;
     }
 
     /**
@@ -117,14 +118,24 @@ class App extends Foundation
      */
     public function layout()
     {
-        $layout_dir = $this->viewsPath() . 'layouts' . DIRECTORY_SEPARATOR;
-        $layout_file = static::getLayout() . '.html.php';
-        $layout = $layout_dir . $layout_file;
+        $dir = $this->viewsPath() . 'layouts' . DIRECTORY_SEPARATOR;
+        $file = static::getLayout() . '.html.php';
+        $layout = $dir . $file;
         if (file_exists($layout)) {
             return $layout;
         }
         else {
-            throw new Exception("Layout {$layout_file} not found. Searched in {$layout_dir}");
+            throw new Exception("Layout {$file} not found. Searched in {$dir}");
+        }
+
+        try{
+            if (file_exists($layout)) {
+                require_once $layout;
+            } else {
+                throw new RequirePartialException($path, $this->appPath());
+            }
+        } catch (RequirePartialException $e){
+            die($e);
         }
     }
 
