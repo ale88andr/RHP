@@ -2,8 +2,8 @@
 
 namespace Environment\Core;
 
-use \Environment\Core\Exceptions\RequireModelException;
-use \Environment\Core\Exceptions\RequirePartialException;
+use \Environment\Core\Exceptions\RequireFileException;
+use Environment\Helpers\Hash;
 
 class Controller
 {
@@ -16,18 +16,18 @@ class Controller
 
     public function model($model_name = null)
     {
-        $model_name = is_null($model_name) ? get_class($this) : trim(strtolower($model_name));
+        $model = is_null($model_name) ? get_class($this) : trim(strtolower($model_name));
         $file = $this->app->appPath() . 'models' .
-                DIRECTORY_SEPARATOR . $model_name . '.php';
+                DIRECTORY_SEPARATOR . $model . '.php';
         try{
             if (file_exists($file)) {
                 require_once $file;
 
-                return new $model_name;
+                return new $model;
             } else {
-                throw new RequireModelException($model_name, $this->app->appPath());
+                throw new RequireFileException('model', $model, $this->app->modelsPath());
             }
-        } catch (RequireModelException $e){
+        } catch (RequireFileException $e){
             die($e);
         }
     }
@@ -52,9 +52,9 @@ class Controller
             if (file_exists($file)) {
                 require_once $file;
             } else {
-                throw new RequirePartialException($path, $this->app->appPath());
+                throw new RequireFileException('view', Hash::get($path, 'file'), $this->app->viewsPath() . Hash::get($path, 'dir'));
             }
-        } catch (RequirePartialException $e){
+        } catch (RequireFileException $e){
             die($e);
         }
     }
