@@ -5,7 +5,7 @@ namespace Environment\Core;
 use Environment\Config\Configuration;
 use Environment\Helpers\Hash;
 use \Exception as Exception;
-use Environment\Core\Exceptions\RequirePartialException;
+use Environment\Core\Exceptions\RequireFileException;
 
 class App extends Foundation
 {
@@ -121,20 +121,13 @@ class App extends Foundation
         $dir = $this->viewsPath() . 'layouts' . DIRECTORY_SEPARATOR;
         $file = static::getLayout() . '.html.php';
         $layout = $dir . $file;
-        if (file_exists($layout)) {
-            return $layout;
-        }
-        else {
-            throw new Exception("Layout {$file} not found. Searched in {$dir}");
-        }
-
         try{
             if (file_exists($layout)) {
-                require_once $layout;
+                return $layout;
             } else {
-                throw new RequirePartialException($path, $this->appPath());
+                throw new RequireFileException('layout', $file, $this->viewsPath() . 'layouts' . DIRECTORY_SEPARATOR);
             }
-        } catch (RequirePartialException $e){
+        } catch (RequireFileException $e){
             die($e);
         }
     }
@@ -158,7 +151,13 @@ class App extends Foundation
         else {
             ini_set('display_errors', 'Off');
             ini_set('log_errors', 'On');
-            ini_set('error_log', $this->basePath() . DIRECTORY_SEPARATOR . 'tmp' . DIRECTORY_SEPARATOR . 'logs' . DIRECTORY_SEPARATOR . 'error.log');
+            ini_set(
+                'error_log',
+                $this->basePath() .
+                DIRECTORY_SEPARATOR . 'tmp' .
+                DIRECTORY_SEPARATOR . 'logs' .
+                DIRECTORY_SEPARATOR . 'error.log'
+            );
         }
     }
 

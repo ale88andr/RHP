@@ -9,7 +9,7 @@ use Environment\Interfaces\Application\Foundation as FoundationInterface;
 class Foundation implements FoundationInterface
 {
 
-    const VERSION = '1.0 pre Alpha';
+    const VERSION = '0.2.1 pre Alpha';
 
     private $basePath;
 
@@ -23,7 +23,17 @@ class Foundation implements FoundationInterface
 
     private $viewsPath;
 
+    private $modelsPath;
+
     public $config;
+
+    /**
+     * @return mixed
+     */
+    public function modelsPath()
+    {
+        return $this->modelsPath;
+    }
 
     /**
      * @return string
@@ -81,6 +91,7 @@ class Foundation implements FoundationInterface
         $this->configPath       = $this->basePath . 'config' . DIRECTORY_SEPARATOR;
         $this->controllersPath  = $this->appPath . 'controllers' . DIRECTORY_SEPARATOR;
         $this->viewsPath        = $this->appPath . 'views' . DIRECTORY_SEPARATOR;
+        $this->modelsPath       = $this->appPath . 'models' .DIRECTORY_SEPARATOR;
         $this->initializeAppEnvironment();
     }
 
