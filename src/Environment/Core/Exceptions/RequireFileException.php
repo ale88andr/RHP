@@ -16,7 +16,7 @@ class RequireFileException extends Exception
     public function __construct($type, $file, $path, $code = 0, Exception $previous = null)
     {
         $this->dataSet = $file;
-        $this->path = $path;
+        $this->path = rtrim($path, DIRECTORY_SEPARATOR);
         $this->type = $type;
         $this->message = $this->setMessage();
 
@@ -30,7 +30,7 @@ class RequireFileException extends Exception
 
     public function setMessage() {
         $message =  String::titlize($this->type) . ' "' . $this->dataSet . '" not found. Searched in: "' .
-            $this->path . DIRECTORY_SEPARATOR . '"';
+                    $this->path . DIRECTORY_SEPARATOR . '"';
 
         return $message;
     }

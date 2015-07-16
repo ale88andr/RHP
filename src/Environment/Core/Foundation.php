@@ -105,4 +105,46 @@ class Foundation implements FoundationInterface
         $this->config = new Configuration($this->configPath . 'env.php');
     }
 
+    protected function setErrorReporting()
+    {
+        error_reporting(E_ALL);
+        if ($this->config->get('environment') == 'development') {
+            ini_set('display_errors', 'On');
+        }
+        else {
+            ini_set('display_errors', 'Off');
+            ini_set('log_errors', 'On');
+            ini_set(
+                'error_log',
+                $this->basePath() .
+                DIRECTORY_SEPARATOR . 'tmp' .
+                DIRECTORY_SEPARATOR . 'logs' .
+                DIRECTORY_SEPARATOR . 'error.log'
+            );
+        }
+    }
+
+    protected function stripSlashesDeep($value)
+    {
+        $value = is_array($value) ? array_map('stripSlashesDeep', $value) : stripslashes($value);
+        return ($value);
+    }
+
+    protected function removeMagicQuotes()
+    {
+        if (get_magic_quotes_gpc()) {
+            $_GET = $this->stripSlashesDeep($_GET);
+            $_POST = $this->stripSlashesDeep($_POST);
+            $_COOKIE = $this->stripSlashesDeep($_COOKIE);
+        }
+    }
+
+    protected function setTimeZone()
+    {
+        $timezone = $this->config->get('timezone');
+        if(is_string($timezone)){
+            date_default_timezone_set($timezone);
+        }
+    }
+
 } 
