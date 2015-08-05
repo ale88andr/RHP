@@ -1,9 +1,13 @@
 <?php
 return [
+    'root' => [
+                'resource'  => 'home',
+                'action'    => 'index',
+    ],
     'main' => [
-                'resource' => 'home', 
+                'resource'  => 'home',
                 // 'constraints' => ['id' => '([-_a-z0-9]+)'], // TODO: Need to make functionality
-                'only' => ['index', 'add'], 
-                'path_names' => ['all' => 'index', 'new' => 'add'],
+                'only'      => ['index', 'add'],
+                'path_names'=> ['all' => 'index', 'new' => 'add'],
                 ],
 ];

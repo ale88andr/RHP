@@ -2,7 +2,7 @@
 
 namespace Environment\Core;
 
-use \Environment\Core\Exceptions\RequireFileException;
+use Environment\Core\Exceptions\RequireFileException;
 use Environment\Helpers\Hash;
 
 class Controller
@@ -17,8 +17,7 @@ class Controller
     public function model($model_name = null)
     {
         $model = is_null($model_name) ? get_class($this) : trim(strtolower($model_name));
-        $file = $this->app->appPath() . 'models' .
-                DIRECTORY_SEPARATOR . $model . '.php';
+        $file = $this->app->modelsPath() . $model . '.php';
         try{
             if (file_exists($file)) {
                 require_once $file;
@@ -32,9 +31,9 @@ class Controller
         }
     }
 
-    public function render($partial, $data = [], $handle_data = true)
+    public function render($partial, $data = [], $handle = true)
     {
-        if ($handle_data === true) {
+        if ($handle === true) {
             foreach ($data as $varName => $value) {
                 $ {
                     $varName
@@ -45,9 +44,7 @@ class Controller
         }
 
         $path = $this->getPartialPath($partial);
-        $file = $this->app->appPath() . 'views' .
-                DIRECTORY_SEPARATOR . $path['dir'] .
-                DIRECTORY_SEPARATOR . $path['file'];
+        $file = $this->app->viewsPath(). Hash::get($path, 'dir') . DIRECTORY_SEPARATOR . Hash::get($path, 'file');
         try{
             if (file_exists($file)) {
                 require_once $file;
@@ -64,12 +61,12 @@ class Controller
         $path = [];
         $partial = ltrim($partial, '/') . '.html.php';
         if (!strpos($partial, '/')) {
-            $path['dir'] = strtolower(get_class($this));
-            $path['file'] = $partial;
+            Hash::set($path, 'dir', strtolower(get_class($this)));
+            Hash::set($path, 'file', $partial);
         } else {
             $tmp = explode('/', $partial);
-            $path['file'] = array_pop($tmp);
-            $path['dir'] = join($tmp);
+            Hash::set($path, 'file', array_pop($tmp));
+            Hash::set($path, 'dir', join($tmp));
         }
 
         return $path;
