@@ -6,7 +6,7 @@ return [
         'host'   => 'localhost',
         'port'   => 27001,
         'database' => 'db_auth',
-        'user'   => 'root',
+        'users'   => 'root',
         'password' => '',
     ],
 

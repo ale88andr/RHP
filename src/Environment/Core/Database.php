@@ -21,7 +21,7 @@ class Database
     {
         $dsn = $this->getDsn();
         try {
-            $this->dbh = new PDO($dsn, Config::get('db:user') , Config::get('db:password'));
+            $this->dbh = new PDO($dsn, Config::get('db:users') , Config::get('db:password'));
             $this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
 

@@ -62,10 +62,9 @@ class Html
             foreach ($options as $tag_attribute => $attribute_value) {
                 if (!empty($attribute_value)) {
                     $html_params .= (is_bool($attribute_value)) ? "{$tag_attribute} "
-                        : "{$tag_attribute}={$attribute_value} ";
+                        : "{$tag_attribute}='{$attribute_value}' ";
                 }
             }
-
             return $html_params;
         }
     }
@@ -127,6 +126,22 @@ class Html
                 break;
             default:
                 throw new Exception('Unknown type of including assets file: ' . $fileType);
+        }
+    }
+
+    public static function useCdn($cdn)
+    {
+        $fileNameArray = explode('.', $cdn);
+        $fileType = end($fileNameArray);
+        switch ($fileType){
+            case('css'):
+                echo '<link rel="stylesheet" href="' . $cdn . '">';
+                break;
+            case('js'):
+                echo '<script src="' . $cdn . '"></script>';
+                break;
+            default:
+                echo '';
         }
     }
 }
