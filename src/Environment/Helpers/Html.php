@@ -129,4 +129,20 @@ class Html
                 throw new Exception('Unknown type of including assets file: ' . $fileType);
         }
     }
+
+    public static function useCdn($cdn)
+    {
+        $fileNameArray = explode('.', $cdn);
+        $fileType = end($fileNameArray);
+        switch ($fileType){
+            case('css'):
+                echo '<link rel="stylesheet" href="' . $cdn . '">';
+                break;
+            case('js'):
+                echo '<script src="' . $cdn . '"></script>';
+                break;
+            default:
+                echo '';
+        }
+    }
 }
