@@ -88,12 +88,12 @@ class Foundation implements FoundationInterface
     public function __construct()
     {
         $this->basePath         = filter_input(INPUT_SERVER, 'DOCUMENT_ROOT') . DIRECTORY_SEPARATOR;
-        $this->appPath          = $this->basePath . 'app' . DIRECTORY_SEPARATOR;
-        $this->corePath         = $this->basePath . 'src' . DIRECTORY_SEPARATOR . 'Environment' . DIRECTORY_SEPARATOR;
-        $this->configPath       = $this->basePath . 'config' . DIRECTORY_SEPARATOR;
-        $this->controllersPath  = $this->appPath . 'controllers' . DIRECTORY_SEPARATOR;
-        $this->viewsPath        = $this->appPath . 'views' . DIRECTORY_SEPARATOR;
-        $this->modelsPath       = $this->appPath . 'models' .DIRECTORY_SEPARATOR;
+        $this->appPath          = $this->basePath   . 'app'         . DIRECTORY_SEPARATOR;
+        $this->corePath         = $this->basePath   . 'src'         . DIRECTORY_SEPARATOR . 'Environment' . DIRECTORY_SEPARATOR;
+        $this->configPath       = $this->basePath   . 'config'      . DIRECTORY_SEPARATOR;
+        $this->controllersPath  = $this->appPath    . 'controllers' . DIRECTORY_SEPARATOR;
+        $this->viewsPath        = $this->appPath    . 'views'       . DIRECTORY_SEPARATOR;
+        $this->modelsPath       = $this->appPath    . 'models'      . DIRECTORY_SEPARATOR;
         $this->initializeAppEnvironment();
     }
 

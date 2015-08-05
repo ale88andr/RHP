@@ -11,7 +11,7 @@ class Configuration implements ConfigurationInterface
 
     public function __construct($fromFile)
     {
-        $this->items = include($fromFile);
+        $this->items = include_once($fromFile);
     }
 
     public function get($item)

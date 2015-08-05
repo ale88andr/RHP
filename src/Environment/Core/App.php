@@ -26,7 +26,7 @@ class App extends Foundation
      */
     public $content;
 
-    private static $defaultTitle;
+    protected static $defaultTitle;
 
     function __construct()
     {

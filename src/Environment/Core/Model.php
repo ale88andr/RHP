@@ -46,7 +46,7 @@ class Model
 
     /**
      * Method gets all records from table.
-     * Example: $user->all(['login', 'created_at']);
+     * Example: $users->all(['login', 'created_at']);
      *
      * @param array $select  Columns for select(default:false[all table columns])
      * @return mixed
@@ -117,12 +117,12 @@ class Model
      */
     private function set_fields($fields)
     {
-        return count($fields) > 0 ? implode(', ', $fields) : ' * ';
+        return $fields != false ? implode(', ', $fields) : ' * ';
     }
 
     /**
      * Insert row.
-     * Example: $user->insert(['login' => $login])
+     * Example: $users->insert(['login' => $login])
      *
      * @param array $hash_values  Inserted values [column => value, ...]
      * @return int
@@ -151,7 +151,7 @@ class Model
 
     /**
      * Update row(s).
-     * Example: $user->update($id, ['login' => $login])
+     * Example: $users->update($id, ['login' => $login])
      *
      * @param string $constraint  SQL Where constraint
      * @param array $hash_values  Inserted values [column => value, ...]

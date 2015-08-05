@@ -6,7 +6,7 @@ class Input
 
 {
     /**
-     * Checks that user form is submitted.
+     * Checks that users form is submitted.
      * Example: if(Input::isSubmit()) { # code here... }
      *
      * @param string $method   Form send method
