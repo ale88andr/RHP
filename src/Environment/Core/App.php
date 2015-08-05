@@ -54,7 +54,7 @@ class App extends Foundation
     {
         $this->controller = Hash::shift($url);
         if(is_null($this->controller)) {
-            $this->controller = 'home';
+            $this->controller = $this->routes->get('root.resource');
         }
         $controller_path = $this->controllersPath() . $this->controller . '.php';
 
@@ -63,7 +63,7 @@ class App extends Foundation
                 require_once $controller_path;
 
                 $this->controller = new $this->controller($this);
-                $this->action = (empty($url[0])) ? 'index' : Hash::shift($url);
+                $this->action = (empty($url[0])) ? $this->routes->get('root.action') : Hash::shift($url);
                 $this->applyControllerAction($url);
             } else {
                 throw new RequireFileException('controller', $this->controller, $this->controllersPath());

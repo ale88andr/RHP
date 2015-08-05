@@ -25,6 +25,8 @@ class Foundation implements FoundationInterface
 
     private $modelsPath;
 
+    public $routes;
+
     public $config;
 
     /**
@@ -103,6 +105,7 @@ class Foundation implements FoundationInterface
     public function initializeAppEnvironment()
     {
         $this->config = new Configuration($this->configPath . 'env.php');
+        $this->routes = new Configuration($this->configPath . 'routes.php');
     }
 
     protected function setErrorReporting()
