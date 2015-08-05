@@ -9,11 +9,11 @@ class Form extends Html
 {
     /**
      * Method return html text field with name [name can be separated by '.' for ierarchy].
-     * Example: Form::text('user.login', ['value' => 'User Login','autocomplete' => 'off'])
-     * Return: <input type='text' name='user[login]' id='user_login' class='user_login' value='User Login'
+     * Example: Form::text('users.login', ['value' => 'User Login','autocomplete' => 'off'])
+     * Return: <input type='text' name='users[login]' id='user_login' class='user_login' value='User Login'
      * autocomplete='off'>
      *
-     * @param string $name      Name string ['user.login' return user['login']
+     * @param string $name      Name string ['users.login' return users['login']
      * @param array $options    Html elements attributes
      * @return string (html)
      */
@@ -25,10 +25,10 @@ class Form extends Html
 
     /**
      * Method return html label with name [name can be separated by '.' for ierarchy].
-     * Example: Form::label('user.login', 'User login', ['class' => 'login_label'])
+     * Example: Form::label('users.login', 'User login', ['class' => 'login_label'])
      * Return: <label for='user_login' id='user_login' class='login_label'>User login</label>
      *
-     * @param string $for       'for' label attribute ['user.login' return user_login]
+     * @param string $for       'for' label attribute ['users.login' return user_login]
      * @param string $content   label content
      * @param array $options    Html elements attributes
      * @return string (html)
@@ -44,10 +44,10 @@ class Form extends Html
 
     /**
      * Method return html password field with name [name can be separated by '.' for ierarchy].
-     * Example: Form::password('user.password', ['autocomplete' => 'off'])
-     * Return: <input type='password' name='user[password]' id='user_password' class='user_password' autocomplete='off'>
+     * Example: Form::password('users.password', ['autocomplete' => 'off'])
+     * Return: <input type='password' name='users[password]' id='user_password' class='user_password' autocomplete='off'>
      *
-     * @param string $name      Name attribute ['user.login' return user['login']
+     * @param string $name      Name attribute ['users.login' return users['login']
      * @param array $options    Html elements attributes
      * @return string (html)
      */
@@ -59,10 +59,10 @@ class Form extends Html
 
     /**
      * Method return html email field with name [name can be separated by '.' for ierarchy].
-     * Example: Form::email('user.email', ['require' => true])
-     * Return: <input type='email' name='user[email]' id='user_email' class='user_email' required >
+     * Example: Form::email('users.email', ['require' => true])
+     * Return: <input type='email' name='users[email]' id='user_email' class='user_email' required >
      *
-     * @param string $name      Name string ['user.login' return user['login']
+     * @param string $name      Name string ['users.login' return users['login']
      * @param array $options    Html elements attributes
      * @return string (html)
      */
@@ -74,12 +74,12 @@ class Form extends Html
 
     /**
      * Method return html textarea with name [name can be separated by '.' for ierarchy].
-     * Example: Form::textarea('user.about', 'Textarea content', ['cols' => 10])
-     * Return: <textarea name='user[about]' class='user_about' id='user_about' cols=10>
+     * Example: Form::textarea('users.about', 'Textarea content', ['cols' => 10])
+     * Return: <textarea name='users[about]' class='user_about' id='user_about' cols=10>
      *          Textarea content
      *         </textarea>
      *
-     * @param string $name      Name string ['user.login' return user['login']
+     * @param string $name      Name string ['users.login' return users['login']
      * @param array $options    Html elements attributes
      * @return string (html)
      */
@@ -91,10 +91,10 @@ class Form extends Html
 
     /**
      * Method return html number field with name [name can be separated by '.' for ierarchy].
-     * Example: Form::numeric('user.age', 0, 99, 1)
-     * Return: <input type='number' name='user[age]' id='user_age' class='user_age' min=0 max=99 step=1 >
+     * Example: Form::numeric('users.age', 0, 99, 1)
+     * Return: <input type='number' name='users[age]' id='user_age' class='user_age' min=0 max=99 step=1 >
      *
-     * @param string $name      Name string ['user.login' return user['login']
+     * @param string $name      Name string ['users.login' return users['login']
      * @param string $min       min attribute
      * @param string $max       max attribute
      * @param string $step      step attribute
@@ -123,14 +123,14 @@ class Form extends Html
 
     /**
      * Method return html select with name [name can be separated by '.' for ierarchy].
-     * Example: Form::select('user.country', ['Russia', 'Ukraine', 'China'])
-     * Return: <select name="user[country]" id="user_country" class="user_country">
+     * Example: Form::select('users.country', ['Russia', 'Ukraine', 'China'])
+     * Return: <select name="users[country]" id="user_country" class="user_country">
      *          <option value="russia">Russia</option>
      *          <option value="ukraine">Ukraine</option>
      *          <option value="china">China</option>
      *         </select>
      *
-     * @param string $name      Name string ['user.login' return user['login']
+     * @param string $name      Name string ['users.login' return users['login']
      * @param array $values     Array with select values
      * @param array $options    Html elements attributes
      * @return string (html)
@@ -148,13 +148,13 @@ class Form extends Html
 
     /**
      * Method return html checkbox with name [name can be separated by '.' for ierarchy].
-     * Example: Form::check_box('user.sex', ['male' => 'Man', 'female' => 'Women'], 'male', [], true)
+     * Example: Form::check_box('users.sex', ['male' => 'Man', 'female' => 'Women'], 'male', [], true)
      * Return: <div style="{display: block}">
-     *          <input type="checkbox" name="user[sex]" id="user_sex_male" class="user_sex" value='male' checked="">Man
-     *          <input type="checkbox" name="user[sex]" id="user_sex_female" class="user_sex" value='female'>Women
+     *          <input type="checkbox" name="users[sex]" id="user_sex_male" class="user_sex" value='male' checked="">Man
+     *          <input type="checkbox" name="users[sex]" id="user_sex_female" class="user_sex" value='female'>Women
      *         </div>
      *
-     * @param string $name      Name string ['user.login' return user['login']
+     * @param string $name      Name string ['users.login' return users['login']
      * @param array $values     Array with checkboxes values
      * @param mixed $checked    Checked by default
      * @param array $options    Html elements attributes
@@ -183,15 +183,15 @@ class Form extends Html
 
     /**
      * Method return html radio button with name [name can be separated by '.' for ierarchy].
-     * Example: Form::radio('user.sex', ['male' => 'Man', 'female' => 'Women'], 'male')
+     * Example: Form::radio('users.sex', ['male' => 'Man', 'female' => 'Women'], 'male')
      * Return: <div style="{display: block}">
-     *          <input type="radio" name="user[sex]" id="user_sex_male" class="user_sex" value='male' checked>Man
+     *          <input type="radio" name="users[sex]" id="user_sex_male" class="user_sex" value='male' checked>Man
      *          <br>
-     *          <input type="radio" name="user[sex]" id="user_sex_female" class="user_sex" value='female'>Women
+     *          <input type="radio" name="users[sex]" id="user_sex_female" class="user_sex" value='female'>Women
      *          <br>
      *          </div>
      *
-     * @param string $name      Name string ['user.login' return user['login']
+     * @param string $name      Name string ['users.login' return users['login']
      * @param array $buttons    Array with radio values
      * @param mixed $checked    Checked by default
      * @param array $options    Html elements attributes
@@ -220,7 +220,7 @@ class Form extends Html
 
     /**
      * Method return html hidden field with name.
-     * Example: Form::hidden('user.id', 5)
+     * Example: Form::hidden('users.id', 5)
      * Return: <input type='hidden' id='user_id' value=5>
      *
      * @param string $name      Nmae attribute
@@ -235,7 +235,7 @@ class Form extends Html
 
     /**
      * Method return html date field with name.
-     * Example: Form::date('user.born', '1940-01-01')
+     * Example: Form::date('users.born', '1940-01-01')
      * Return: <input type='date' id='user_born' class='user_born' value='01-01-1940'>
      *
      * @param string $name      Name attribute

@@ -62,10 +62,9 @@ class Html
             foreach ($options as $tag_attribute => $attribute_value) {
                 if (!empty($attribute_value)) {
                     $html_params .= (is_bool($attribute_value)) ? "{$tag_attribute} "
-                        : "{$tag_attribute}={$attribute_value} ";
+                        : "{$tag_attribute}='{$attribute_value}' ";
                 }
             }
-
             return $html_params;
         }
     }

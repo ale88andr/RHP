@@ -10,4 +10,8 @@ return [
                 'only'      => ['index', 'add'],
                 'path_names'=> ['all' => 'index', 'new' => 'add'],
                 ],
+    'users'=> [
+                'resource' => 'users',
+                'only'     => ['login', 'register']
+                ],
 ];

@@ -16,7 +16,7 @@ class Controller
 
     public function model($model_name = null)
     {
-        $model = is_null($model_name) ? get_class($this) : trim(strtolower($model_name));
+        $model = is_null($model_name) ? rtrim(get_class($this), 's') : trim(strtolower($model_name));
         $file = $this->app->modelsPath() . $model . '.php';
         try{
             if (file_exists($file)) {
