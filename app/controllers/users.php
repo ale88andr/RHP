@@ -2,6 +2,7 @@
 
 use Environment\Core\Controller;
 use Environment\Core\Route;
+use Environment\Helpers\Params;
 
 class Users extends Controller
 {
@@ -27,7 +28,7 @@ class Users extends Controller
                 Route::to('index:root');
             } else {
                 $error = '<br><br><br> Something went wrong';
-                $this->render('login', ['error' => $error]);
+                $this->render('register', ['error' => $error]);
             }
         }
         $this->render('register');
@@ -35,11 +36,12 @@ class Users extends Controller
 
     public function createUser($user = [])
     {
-        $user = $this->model();
+        $model = $this->model();
         if(!empty($user)){
             $user['password'] = password_hash($user['password'], PASSWORD_DEFAULT);
             try {
-                $user->insert($user);
+                $model->insert(Params::permit($user, ['login', 'email', 'password']));
+                $this->loginUser(['login' => $user['login'], 'password' => $user['password_confirmation']]);
                 return true;
             } catch (Exception $e){
                 echo $e->getMessage();
@@ -54,8 +56,8 @@ class Users extends Controller
         try {
             $result = $model->find(['login' => $user['login']]);
             if(!empty($result)){
-                if(password_verify($user['password'], $result['password'])){
-                    $_SESSION['users'] = $result['id'];
+                if(password_verify($user['password'], $result->password)){
+                    $_SESSION['users'] = $result->id;
                     return true;
                 } else {
                     return false;
@@ -66,7 +68,7 @@ class Users extends Controller
         }
     }
 
-    public function current_user()
+    public static function current_user()
     {
         $user = $this->model('User');
         if(isset($_SESSION['users'])){
