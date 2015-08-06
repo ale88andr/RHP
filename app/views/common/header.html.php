@@ -12,8 +12,12 @@
             </ul>
 
             <ul class="nav navbar-nav pull-right">
-                <li class="active"><?= \Environment\Helpers\Link::to('users/login', 'Login');?></li>
-                <li><?= \Environment\Helpers\Link::to('users/register', 'Register');?></li>
+                <? if(Users::current()): ?>
+                    <li class="active">You login as: <?= Users::current()->login;?></li>
+                <? else: ?>
+                    <li class="active"><?= \Environment\Helpers\Link::to('users/login', 'Login');?></li>
+                    <li><?= \Environment\Helpers\Link::to('users/register', 'Register');?></li>
+                <? endif; ?>
             </ul>
         </div>
     </div>

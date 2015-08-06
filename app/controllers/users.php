@@ -4,6 +4,7 @@ use Environment\Core\Controller;
 use Environment\Core\Route;
 use Environment\Core\Validate;
 use Environment\Core\Input;
+use Environment\Core\Database;
 use Environment\Helpers\Params;
 use Environment\Helpers\Hash;
 
@@ -78,11 +79,13 @@ class Users extends Controller
         }
     }
 
-    public static function current_user()
+    public static function current()
     {
-        $user = $this->model('User');
+        $stmt = Database::connect();;
         if(isset($_SESSION['users'])){
-            return $user->find(['id' => $_SESSION['users']]);
+            $stmt->prepare('SELECT * FROM users WHERE id = :id');
+            $stmt->execute(array(':id', $_SESSION['user']));
+            return $stmt->fetch(PDO::FETCH_OBJ);
         } else {
             return false;
         }
