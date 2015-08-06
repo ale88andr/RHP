@@ -2,22 +2,14 @@
 
 use Environment\Core\App;
 use Environment\Core\Input;
-use Environment\Core\Validate;
 use Environment\Helpers\Html;
-use Environment\Helpers\Link;
 use Environment\Helpers\Form;
-use Environment\Helpers\Date;
-use Environment\Helpers\String;
 
 App::setTitle('Login');
 ?>
 <div class="row">
-    <?php if(isset($error)){?>
-        <div class="text-center">
-            <span class="text-warning"><?= $error;?></span>
-        </div>
-    <? } ?>
     <div class="col-md-4 col-md-offset-4">
+        <?= include_once '_errors.html.php' ?>
         <?= Html::tag('h1', 'Login as users', ['class' => 'text-center text-warning'])?>
         <form action="" method="post">
             <div class="form-group">

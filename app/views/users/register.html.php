@@ -9,10 +9,11 @@ use Environment\Helpers\Form;
 use Environment\Helpers\Date;
 use Environment\Helpers\String;
 
-App::setTitle('Login');
+App::setTitle('Register User');
 ?>
 <div class="row">
     <div class="col-md-4 col-md-offset-4">
+        <?= include '_errors.html.php' ?>
         <?= Html::tag('h1', 'Register new users', ['class' => 'text-center text-info'])?>
         <form action="" method="post">
             <div class="form-group">
