@@ -99,7 +99,7 @@ class Validate
     private function presence($item, $value, $option = false)
     {
         if ($option === true && empty($value)) {
-            $this->addError("'{$item}' is required!");
+            $this->addError("<strong>{$item}</strong> is required!");
         }
     }
 
@@ -160,7 +160,7 @@ class Validate
         $range = explode('..', $range);
         $value_length = strlen($value);
         if ($value_length < $range[0] || $value_length > $range[1] || empty($value)) {
-            $this->addError("'{$item}' length must be in {$range[0]} .. {$range[1]}!");
+            $this->addError("<strong>{$item}</strong> length must be in {$range[0]} .. {$range[1]}!");
         }
     }
 
@@ -175,7 +175,7 @@ class Validate
     private function lengthIs($item, $value, $length)
     {
         if (strlen($value) !== $length || empty($value)) {
-            $this->addError("'{$item}' length must be {$length}");
+            $this->addError("<strong>{$item}</strong> length must be {$length}");
         }
     }
 
@@ -190,7 +190,7 @@ class Validate
     private function lengthMin($item, $value, $length)
     {
         if (strlen($value) < $length || empty($value)) {
-            $this->addError("'{$item}' minimum length must be bigger than {$length}");
+            $this->addError("<strong>{$item}</strong> minimum length must be bigger than {$length}");
         }
     }
 
@@ -205,7 +205,7 @@ class Validate
     private function lengthMax($item, $value, $length)
     {
         if (strlen($value) > $length || empty($value)) {
-            $this->addError("'{$item}' minimum length must be less than {$length}");
+            $this->addError("<strong>{$item}</strong> minimum length must be less than {$length}");
         }
     }
 
@@ -223,7 +223,7 @@ class Validate
     private function inclusion($item, $value, $predetermined)
     {
         if (!in_array($value, $predetermined) || empty($value)) {
-            $this->addError("'{$item}' must be in one of: " . implode(', ', $predetermined));
+            $this->addError("<strong>{$item}</strong> must be in one of: " . implode(', ', $predetermined));
         }
     }
 
@@ -241,7 +241,7 @@ class Validate
     private function format($item, $value, $regexp)
     {
         if (!preg_match($regexp, $value)) {
-            $this->addError("'{$item}' not be in right format!");
+            $this->addError("<strong>{$item}</strong> not be in right format!");
         }
     }
 
@@ -259,7 +259,7 @@ class Validate
     private function numericality($item, $value, $option)
     {
         if (!is_int($value) && $option === true) {
-            $this->addError("'{$item}' must be integer.");
+            $this->addError("<strong>{$item}</strong> must be integer.");
         }
     }
 
@@ -278,7 +278,7 @@ class Validate
     private function confirmation($item, $value, $value_confirmation, $option)
     {
         if ($value !== $value_confirmation && $option === true) {
-            $this->addError("'{$item}' not equals '{$item}_confirmation'");
+            $this->addError("<strong>{$item}</strong> not equals '{$item}_confirmation'");
         }
     }
 
@@ -297,7 +297,7 @@ class Validate
     {
         $unique = $this->_db->query("SELECT * FROM {$table} WHERE {$item} = '{$value}'");
         if ($unique->row_count()) {
-            $this->addError("{$item} '{$value}' already exists in database.");
+            $this->addError("{$item} <strong>{$value}<strong> already exists in database.");
         }
     }
 
