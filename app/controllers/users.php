@@ -2,19 +2,23 @@
 
 use Environment\Core\Controller;
 use Environment\Core\Route;
+use Environment\Core\Validate;
+use Environment\Core\Input;
 use Environment\Helpers\Params;
+use Environment\Helpers\Hash;
 
 class Users extends Controller
 {
+    private $errors = [];
 
     public function login()
     {
-        if(isset($_POST['users'])){
-            if($this->loginUser($_POST['users'])){
+        if(Input::isSubmit('post')){
+            if($this->loginUser(Input::find('users'))){
                 Route::to('index:root');
             } else {
-                $error = '<br><br><br> User Or Password Incorrect';
-                $this->render('login', ['error' => $error]);
+                $this->errors[] = 'User Or Password Incorrect';
+                $this->render('login', ['errors' => $this->errors]);
             }
         } else {
             $this->render('login');
@@ -23,12 +27,11 @@ class Users extends Controller
 
     public function register()
     {
-        if(isset($_POST['users'])){
-            if($this->createUser($_POST['users'])){
+        if(Input::isSubmit('post')){
+            if ($this->createUser(Input::find('users'))) {
                 Route::to('index:root');
-            } else {
-                $error = '<br><br><br> Something went wrong';
-                $this->render('register', ['error' => $error]);
+            } elseif (!empty($this->errors)){
+                $this->render('register', ['errors' => $this->errors]);
             }
         }
         $this->render('register');
@@ -37,16 +40,22 @@ class Users extends Controller
     public function createUser($user = [])
     {
         $model = $this->model();
-        if(!empty($user)){
-            $user['password'] = password_hash($user['password'], PASSWORD_DEFAULT);
+
+        $check = new Validate();
+        $params = $check->validates($user,$this->model()->validate);
+        if($params->isValid()) {
+            $user['password'] = password_hash(Hash::get($user, 'password'), PASSWORD_DEFAULT);
             try {
                 $model->insert(Params::permit($user, ['login', 'email', 'password']));
-                $this->loginUser(['login' => $user['login'], 'password' => $user['password_confirmation']]);
+                $this->loginUser(['login' => Hash::get($user, 'login'), 'password' => Hash::get($user, 'password_confirmation')]);
                 return true;
             } catch (Exception $e){
                 echo $e->getMessage();
                 return false;
             }
+        } else {
+            $this->errors = $params->errors();
+            return false;
         }
     }
 
@@ -56,7 +65,7 @@ class Users extends Controller
         try {
             $result = $model->find(['login' => $user['login']]);
             if(!empty($result)){
-                if(password_verify($user['password'], $result->password)){
+                if(password_verify(Hash::get($user, 'password'), $result->password)){
                     $_SESSION['users'] = $result->id;
                     return true;
                 } else {
@@ -65,6 +74,7 @@ class Users extends Controller
             }
         } catch(Exception $e) {
             echo $e->getMessage();
+            return false;
         }
     }
 

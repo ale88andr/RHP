@@ -8,7 +8,7 @@
     <?=Environment\Helpers\Html::useCdn('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css');?>
     <?=Environment\Helpers\Html::useCdn('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js');?>
   </head>
-  <body style="padding-top: 40px;">
+  <body style="padding-top: 80px;">
     <!-- header -->
     <? include_once $app->viewsPath() . 'common/header.html.php' ?>
     <!-- page content -->
