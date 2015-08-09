@@ -1,6 +1,7 @@
 <?php
 
 use Environment\Core\Model;
+use Environment\Core\Database;
 
 class User extends Model
 {
@@ -22,5 +23,16 @@ class User extends Model
 
     public function __construct(){
         parent::__construct();
+    }
+
+    public static function current()
+    {
+        if(isset($_SESSION['users'])){
+            $stmt = Database::connect();
+            $stmt->query('SELECT * FROM users WHERE id = :id', ['id' => $_SESSION['users']]);
+            return $stmt->results();
+        } else {
+            return false;
+        }
     }
 }

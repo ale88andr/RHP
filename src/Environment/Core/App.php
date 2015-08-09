@@ -155,6 +155,7 @@ class App extends Foundation
         $this->setErrorReporting();
         $this->removeMagicQuotes();
         $this->setTimeZone();
+        session_start();
         static::$defaultTitle = $this->config->get('title');
     }
 

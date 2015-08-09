@@ -78,20 +78,10 @@ class Users extends Controller
         }
     }
 
-    public static function current_user()
-    {
-        $user = $this->model('User');
-        if(isset($_SESSION['users'])){
-            return $user->find(['id' => $_SESSION['users']]);
-        } else {
-            return false;
-        }
-    }
-
     public function logout()
     {
         session_destroy();
         unset($_SESSION['users']);
-        return true;
+        Route::to('index:root');
     }
 }
