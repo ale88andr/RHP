@@ -12,8 +12,10 @@
             </ul>
 
             <ul class="nav navbar-nav pull-right">
-                <? if(Users::current()): ?>
-                    <li class="active">You login as: <?= Users::current()->login;?></li>
+                <? $currentUser = User::current(); ?>
+                <? if($currentUser): ?>
+                    <li class="active"><a href="#">You login as: <?= $currentUser->login;?></a></li>
+                    <li><?= \Environment\Helpers\Link::to('users/logout', 'Exit');?></li>
                 <? else: ?>
                     <li class="active"><?= \Environment\Helpers\Link::to('users/login', 'Login');?></li>
                     <li><?= \Environment\Helpers\Link::to('users/register', 'Register');?></li>

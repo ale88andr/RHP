@@ -12,6 +12,11 @@ spl_autoload_register(function($className)
         }
         $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
 
-        require_once ROOT . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . $fileName;
+        if(file_exists(ROOT . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . $fileName)){
+            require_once ROOT . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . $fileName;
+        } elseif (file_exists(ROOT . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'models' . DIRECTORY_SEPARATOR . $fileName)){
+            require_once ROOT . DIRECTORY_SEPARATOR . 'app' . DIRECTORY_SEPARATOR . 'models' . DIRECTORY_SEPARATOR . $fileName;
+        }
+
     }
 );

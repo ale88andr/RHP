@@ -4,7 +4,6 @@ use Environment\Core\Controller;
 use Environment\Core\Route;
 use Environment\Core\Validate;
 use Environment\Core\Input;
-use Environment\Core\Database;
 use Environment\Helpers\Params;
 use Environment\Helpers\Hash;
 
@@ -79,22 +78,10 @@ class Users extends Controller
         }
     }
 
-    public static function current()
-    {
-        $stmt = Database::connect();;
-        if(isset($_SESSION['users'])){
-            $stmt->prepare('SELECT * FROM users WHERE id = :id');
-            $stmt->execute(array(':id', $_SESSION['user']));
-            return $stmt->fetch(PDO::FETCH_OBJ);
-        } else {
-            return false;
-        }
-    }
-
     public function logout()
     {
         session_destroy();
         unset($_SESSION['users']);
-        return true;
+        Route::to('index:root');
     }
 }
