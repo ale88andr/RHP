@@ -35,8 +35,8 @@ class Route
                 $controller = $routes['resource'];
             }
 
-            if (array_key_exists('path_names', $routes) && array_key_exists($action, $routes['path_names'])) {
-                $action = $routes['path_names'][$action];
+            if (array_key_exists('alias', $routes) && array_key_exists($action, $routes['alias'])) {
+                $action = $routes['alias'][$action];
             }
 
             if (array_key_exists('only', $routes) && !array_search($action, $routes['only'])) {

@@ -7,11 +7,15 @@ return [
     'main' => [
                 'resource'  => 'home',
                 // 'constraints' => ['id' => '([-_a-z0-9]+)'], // TODO: Need to make functionality
-                'only'      => ['index', 'add'],
-                'path_names'=> ['all' => 'index', 'new' => 'add'],
-                ],
+                'only'      => ['index', 'new'],
+                'alias'     => ['index' => 'all', 'add' => 'new'],
+    ],
     'users'=> [
-                'resource' => 'users',
-                'only'     => ['login', 'register']
-                ],
+                'only'      => ['register', 'logout'],
+                'alias'     => ['register' => 'registration']
+    ],
+    'login' => [
+                'resource'  => 'users',
+                'action'    => 'login',
+    ],
 ];

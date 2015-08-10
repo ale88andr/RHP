@@ -6,7 +6,7 @@ use \Exception;
 use \Environment\Helpers\Hash;
 use \Environment\Helpers\String;
 
-class RequireFileException extends Exception
+class RequireFileException extends Exception implements ExceptionInterface
 {
     private $dataSet;
     private $path;

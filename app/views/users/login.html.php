@@ -10,7 +10,7 @@ App::setTitle('Login');
 <div class="row">
     <div class="col-md-4 col-md-offset-4">
         <?= include_once '_errors.html.php' ?>
-        <?= Html::tag('h1', 'Login as users', ['class' => 'text-center text-warning'])?>
+        <?= Html::tag('h1', 'Login as user', ['class' => 'text-center text-warning'])?>
         <form action="" method="post">
             <div class="form-group">
                 <?= Form::label('users.login', 'Username :') ?>

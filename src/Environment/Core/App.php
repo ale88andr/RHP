@@ -10,7 +10,7 @@ use Environment\Core\Exceptions\RequireFileException;
 
 class App extends Foundation
 {
-    protected $controller, $action, $params = [];
+    protected $controller, $controllerName, $action, $route, $params = [];
 
     /**
      * Application html layout name
@@ -47,30 +47,61 @@ class App extends Foundation
      * Controller handler by request params.
      *
      * @param array $url Request string (URI)
-     * @throws Exception
      * @return void
      */
     private function applyController($url)
     {
-        $this->controller = Hash::shift($url);
-        if(is_null($this->controller)) {
-            $this->controller = $this->routes->get('root.resource');
-        }
-        $controller_path = $this->controllersPath() . $this->controller . '.php';
+        $this->getController($url);
 
         try{
-            if (file_exists($controller_path)) {
-                require_once $controller_path;
-
-                $this->controller = new $this->controller($this);
-                $this->action = (empty($url[0])) ? $this->routes->get('root.action') : Hash::shift($url);
-                $this->applyControllerAction($url);
-            } else {
-                throw new RequireFileException('controller', $this->controller, $this->controllersPath());
-            }
+            $this->createControllerInstance($this->controllersPath() . $this->controller . '.php');
         } catch (RequireFileException $e){
             die($e);
         }
+
+        $this->action = (empty($url[0])) ? Hash::get($this->route, 'action') : Hash::shift($url);
+        $this->applyControllerAction($url);
+    }
+
+    /**
+     * Require controller by request params.
+     *
+     * @param string $filePath controller file path
+     * @throws RequireFileException
+     * @return void
+     */
+    private function createControllerInstance($filePath)
+    {
+        if (file_exists($filePath)) {
+            require_once $filePath;
+            $this->controller = new $this->controller($this);
+        } else {
+            throw new RequireFileException('controller', $this->controller, $this->controllersPath());
+        }
+    }
+
+    /**
+     * Set's controller name
+     *
+     * @param array $url Request string (URI)
+     * @return void
+     */
+    private function getController(&$url)
+    {
+        $controller = Hash::shift($url);
+        $route = $this->routes->get($controller);
+
+        if (array_key_exists('resource', $route)) {
+            $controller = $route['resource'];
+        }
+
+        if(is_null($controller)) {
+            $route = $this->routes->get('root');
+            $controller = Hash::get($route, 'resource');
+        }
+
+        $this->controller = $this->controllerName = $controller;
+        $this->route = $route;
     }
 
     /**
@@ -82,18 +113,37 @@ class App extends Foundation
      */
     private function applyControllerAction($url)
     {
-        try{
-            if (method_exists($this->controller, $this->action)) {
+        try {
+            $this->pathNames($this->route);
+            if (array_key_exists('only', $this->route) && !in_array($this->action, $this->route['only'])) {
+                throw new CallActionException(
+                    $this->controllerName,
+                    $this->action,
+                    $this->route['only']
+                );
+            } elseif (method_exists($this->controller, $this->action)) {
                 $this->params = $url;
                 ob_start();
                 call_user_func_array([$this->controller, $this->action], $this->params);
                 $this->content = ob_get_clean();
             } else {
-                throw new CallActionException(get_class($this->controller), $this->action);
-
+                throw new CallActionException(
+                    get_class($this->controller),
+                    $this->action
+                );
             }
         } catch(CallActionException $e){
             die($e);
+        }
+    }
+
+    private function pathNames()
+    {
+        if(array_key_exists('alias', $this->route)){
+            $names = array_flip($this->route['alias']);
+            if(array_key_exists($this->action, $names)){
+                $this->action = $names[$this->action];
+            }
         }
     }
 

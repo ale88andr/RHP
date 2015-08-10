@@ -56,4 +56,6 @@ class Hash
     {
         return $array[0];
     }
+
+    public static function keyExists
 }
