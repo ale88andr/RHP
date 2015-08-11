@@ -20,7 +20,14 @@ class Form extends Html
     public static function text($name, $options = [])
     {
         $name = static ::responseName($name);
-        return static ::tag('input', false, array_merge(['type' => 'text', 'name' => $name['script'], 'id' => $name['html'], 'class' => $name['html']], $options));
+        return static ::tag(
+            'input',
+            false,
+            array_merge(
+                ['type' => 'text', 'name' => $name['script'], 'id' => $name['html'], 'class' => $name['html']],
+                $options
+            )
+        );
     }
 
     /**
@@ -54,7 +61,14 @@ class Form extends Html
     public static function password($name, $options = [])
     {
         $name = static ::responseName($name);
-        return static ::tag('input', false, array_merge(['type' => 'password', 'name' => $name['script'], 'id' => $name['html'], 'class' => $name['html']], $options));
+        return static ::tag(
+            'input',
+            false,
+            array_merge(
+                ['type' => 'password', 'name' => $name['script'], 'id' => $name['html'], 'class' => $name['html']],
+                $options
+            )
+        );
     }
 
     /**
@@ -69,7 +83,14 @@ class Form extends Html
     public static function email($name, $options = [])
     {
         $name = static ::responseName($name);
-        return static ::tag('input', false, array_merge(['type' => 'email', 'name' => $name['script'], 'id' => $name['html'], 'class' => $name['html']], $options));
+        return static ::tag(
+            'input',
+            false,
+            array_merge(
+                ['type' => 'email', 'name' => $name['script'], 'id' => $name['html'], 'class' => $name['html']],
+                $options
+            )
+        );
     }
 
     /**
@@ -86,7 +107,14 @@ class Form extends Html
     public static function textarea($name, $content, $options = [])
     {
         $name = static ::responseName($name);
-        return static ::tag('textarea', $content, array_merge(['name' => $name['script'], 'id' => $name['html'], 'class' => $name['html']], $options));
+        return static ::tag(
+            'textarea',
+            $content,
+            array_merge(
+                ['name' => $name['script'], 'id' => $name['html'], 'class' => $name['html']],
+                $options
+            )
+        );
     }
 
     /**
@@ -104,7 +132,14 @@ class Form extends Html
     public static function numeric($name, $min, $max, $step, $options = [])
     {
         $name = static ::responseName($name);
-        return static ::tag('input', false, array_merge(['type' => 'number', 'name' => $name['script'], 'min' => $min, 'max' => $max, 'step' => $step, 'id' => $name['html'], 'class' => $name['html']], $options));
+        return static ::tag(
+            'input',
+            false,
+            array_merge(
+                ['type' => 'number', 'name' => $name['script'], 'min' => $min, 'max' => $max, 'step' => $step, 'id' => $name['html'], 'class' => $name['html']],
+                $options
+            )
+        );
     }
 
     /**
@@ -143,7 +178,14 @@ class Form extends Html
             $content.= '<option value=' . strtolower($value) . '>' . $value . '</option>';
         }
 
-        return static ::tag('select', $content, array_merge(['name' => $name['script'], 'id' => $name['html'], 'class' => $name['html']], $options));
+        return static ::tag(
+            'select',
+            $content,
+            array_merge(
+                ['name' => $name['script'], 'id' => $name['html'], 'class' => $name['html']],
+                $options
+            )
+        );
     }
 
     /**
@@ -167,12 +209,23 @@ class Form extends Html
         $html = '<div style="{display: block}">';
         foreach($values as $key => $value) {
             $checked_flag = [];
+
             if ($checked !== false && $key == $checked) {
                 $checked_flag = ['checked' => true];
             }
 
-            $html.= static ::tag('input', false, array_merge(['type' => 'checkbox', 'value' => $key, 'name' => $name['script'], 'id' => $name['html'] . '_' . $key, 'class' => $name['html']], $options, $checked_flag));
+            $html.= static ::tag(
+                'input',
+                false,
+                array_merge(
+                    ['type' => 'checkbox', 'value' => $key, 'name' => $name['script'], 'id' => $name['html'] . '_' . $key, 'class' => $name['html']],
+                    $options,
+                    $checked_flag
+                )
+            );
+
             $html.= $value;
+
             if ($inline === false) {
                 $html.= static ::tag('br');
             }
@@ -208,8 +261,18 @@ class Form extends Html
                 $checked_flag = ['checked' => true];
             }
 
-            $html.= static ::tag('input', false, array_merge(['type' => 'radio', 'name' => $name['script'], 'value' => $key, 'id' => $name['html'] . '_' . $key, 'class' => $name['html']], $options, $checked_flag));
+            $html.= static ::tag(
+                'input',
+                false,
+                array_merge(
+                    ['type' => 'radio', 'name' => $name['script'], 'value' => $key, 'id' => $name['html'] . '_' . $key, 'class' => $name['html']],
+                    $options,
+                    $checked_flag
+                )
+            );
+
             $html.= $value;
+
             if ($inline === false) {
                 $html.= static ::tag('br');
             }
@@ -251,7 +314,15 @@ class Form extends Html
             $post_options['value'] = $default;
         }
 
-        return static ::tag('input', false, array_merge(['type' => 'date', 'name' => $name['script'], 'id' => $name['html'], 'class' => $name['html']], $options, $post_options));
+        return static ::tag(
+            'input',
+            false,
+            array_merge(
+                ['type' => 'date', 'name' => $name['script'], 'id' => $name['html'], 'class' => $name['html']],
+                $options,
+                $post_options
+            )
+        );
     }
 
     /**
@@ -266,9 +337,9 @@ class Form extends Html
         if (strpos($name, '.')) {
             $array_name = explode('.', $name);
             $value_for_attributes = implode('_', $array_name);
-            $value_for_name = array_shift($array_name);
+            $value_for_name = Hash::extract($array_name);
             foreach($array_name as $value) {
-                $value_for_name.= '[' . $value . ']';
+                $value_for_name .= '[' . $value . ']';
             }
 
             return ['html' => $value_for_attributes, 'script' => $value_for_name];

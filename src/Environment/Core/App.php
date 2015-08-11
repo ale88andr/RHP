@@ -59,7 +59,7 @@ class App extends Foundation
             die($e);
         }
 
-        $this->action = (empty($url[0])) ? Hash::get($this->route, 'action') : Hash::shift($url);
+        $this->action = (empty($url[0])) ? Hash::get($this->route, 'action') : Hash::extract($url);
         $this->applyControllerAction($url);
     }
 
@@ -88,10 +88,10 @@ class App extends Foundation
      */
     private function getController(&$url)
     {
-        $controller = Hash::shift($url);
+        $controller = Hash::extract($url);
         $route = $this->routes->get($controller);
 
-        if (array_key_exists('resource', $route)) {
+        if (Hash::keyExists($route, 'resource')) {
             $controller = $route['resource'];
         }
 
@@ -115,7 +115,7 @@ class App extends Foundation
     {
         try {
             $this->pathNames($this->route);
-            if (array_key_exists('only', $this->route) && !in_array($this->action, $this->route['only'])) {
+            if (Hash::keyExists($this->route, 'only') && !Hash::contains($this->route['only'], $this->action)) {
                 throw new CallActionException(
                     $this->controllerName,
                     $this->action,
@@ -139,9 +139,9 @@ class App extends Foundation
 
     private function pathNames()
     {
-        if(array_key_exists('alias', $this->route)){
+        if(Hash::keyExists($this->route, 'alias')){
             $names = array_flip($this->route['alias']);
-            if(array_key_exists($this->action, $names)){
+            if(Hash::keyExists($names, $this->action)){
                 $this->action = $names[$this->action];
             }
         }

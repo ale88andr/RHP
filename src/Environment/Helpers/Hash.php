@@ -42,7 +42,7 @@ class Hash
         return $array;
     }
 
-    public static function shift(&$array)
+    public static function extract(&$array)
     {
         if(empty($array) || static::first($array) == '') {
             return null;
@@ -57,5 +57,17 @@ class Hash
         return $array[0];
     }
 
-    public static function keyExists
+    public static function keyExists($array, $key)
+    {
+        return array_key_exists($key, $array) ? true : false;
+    }
+
+    public static function contains($array, $data)
+    {
+        if(!empty($array) && !empty($data)) {
+            return in_array($data, $array) ? true : false;
+        } else {
+            return false;
+        }
+    }
 }
