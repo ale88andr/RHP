@@ -37,7 +37,7 @@ class String
 
     public static function raw($subject)
     {
-        return htmlspecialchars($subject, ENT_QUOTES);
+        return htmlentities($subject, ENT_QUOTES, 'UTF-8');
     }
 
     public static function remove($subject, $search)
@@ -63,6 +63,6 @@ class String
 
     public static function isBlank($subject)
     {
-        return (empty($subject)) ? true : false;
+        return (empty($subject) || $subject == ' ') ? true : false;
     }
 }

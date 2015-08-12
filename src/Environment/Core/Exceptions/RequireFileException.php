@@ -29,7 +29,7 @@ class RequireFileException extends Exception implements ExceptionInterface
     }
 
     public function setMessage() {
-        $message =  String::titlize($this->type) . ' "' . $this->dataSet . '" not found. Searched in: "' .
+        $message =  String::titlize($this->type) . ' "' . $this->dataSet . '" not found.<br>Searched in: "' .
                     $this->path . DIRECTORY_SEPARATOR . '"';
 
         return $message;

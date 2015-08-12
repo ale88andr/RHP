@@ -56,7 +56,7 @@ class App extends Foundation
         try{
             $this->createControllerInstance($this->controllersPath() . $this->controller . '.php');
         } catch (RequireFileException $e){
-            die($e);
+            ActionController::routingError($e);
         }
 
         $this->action = (empty($url[0])) ? Hash::get($this->route, 'action') : Hash::extract($url);
@@ -133,7 +133,7 @@ class App extends Foundation
                 );
             }
         } catch(CallActionException $e){
-            die($e);
+            ActionController::routingError($e);
         }
     }
 

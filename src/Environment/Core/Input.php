@@ -50,12 +50,21 @@ class Input
         }
 
         if (isset($_POST[$item])) {
-            return $_POST[$item];
+            return static::filter($_POST[$item]);
         }
         elseif (isset($_GET[$item])) {
-            return $_GET[$item];
+            return static::filter($_GET[$item]);
         }
 
         return '';
+    }
+
+    public static function filter($input)
+    {
+        $safe = is_array($input)
+            ? array_map('static::filter', $input)
+            : filter_var($input, FILTER_SANITIZE_STRING, FILTER_FLAG_STRIP_LOW | FILTER_FLAG_ENCODE_HIGH);
+
+        return $safe;
     }
 }

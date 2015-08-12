@@ -25,9 +25,19 @@ class Foundation implements FoundationInterface
 
     private $modelsPath;
 
+    private $exceptionOutput;
+
     public $routes;
 
     public $config;
+
+    /**
+     * @return mixed
+     */
+    public function exceptionOutput()
+    {
+        return $this->exceptionOutput;
+    }
 
     /**
      * @return mixed
@@ -94,6 +104,7 @@ class Foundation implements FoundationInterface
         $this->controllersPath  = $this->appPath    . 'controllers' . DIRECTORY_SEPARATOR;
         $this->viewsPath        = $this->appPath    . 'views'       . DIRECTORY_SEPARATOR;
         $this->modelsPath       = $this->appPath    . 'models'      . DIRECTORY_SEPARATOR;
+        $this->exceptionOutput  = $this->viewsPath  . 'common'      . DIRECTORY_SEPARATOR . 'output.html.php';
         $this->initializeAppEnvironment();
     }
 

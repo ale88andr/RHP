@@ -59,7 +59,11 @@ class Hash
 
     public static function keyExists($array, $key)
     {
-        return array_key_exists($key, $array) ? true : false;
+        if(!is_array($array) || empty($array)){
+            return false;
+        }
+
+        return array_key_exists($key, $array);
     }
 
     public static function contains($array, $data)
